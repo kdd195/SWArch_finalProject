@@ -1,0 +1,600 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "",
+    "version" : "1.0.4",
+    "title" : "Hilbun Hotels"
+  },
+  "tags" : [ {
+    "name" : "room",
+    "description" : "Everything about rooms"
+  }, {
+    "name" : "reservation",
+    "description" : "Access to room and location reservations"
+  }, {
+    "name" : "user",
+    "description" : "Operations for users"
+  }, {
+    "name" : "debug",
+    "description" : "Debugging operations"
+  } ],
+  "paths" : {
+    "/room" : {
+      "post" : {
+        "tags" : [ "room" ],
+        "summary" : "Add a new room to the location",
+        "operationId" : "addroom",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "room object that needs to be added to the location",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Room"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "success"
+          },
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "room" ],
+        "summary" : "Update an existing room",
+        "operationId" : "updateroom",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "room object that needs to be added to the location",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Room"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "success"
+          },
+          "400" : {
+            "description" : "Invalid ID supplied"
+          },
+          "404" : {
+            "description" : "room not found"
+          },
+          "405" : {
+            "description" : "Validation exception"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      }
+    },
+    "/room/{roomId}" : {
+      "get" : {
+        "tags" : [ "room" ],
+        "summary" : "Find room by ID",
+        "description" : "Returns a single room",
+        "operationId" : "getroomById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "roomId",
+          "in" : "path",
+          "description" : "ID of room to return",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Room"
+            }
+          },
+          "400" : {
+            "description" : "Invalid ID supplied"
+          },
+          "404" : {
+            "description" : "room not found"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "room" ],
+        "summary" : "Deletes a room",
+        "operationId" : "deleteroom",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "roomId",
+          "in" : "path",
+          "description" : "room id to delete",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "success"
+          },
+          "400" : {
+            "description" : "Invalid ID supplied"
+          },
+          "404" : {
+            "description" : "room not found"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      }
+    },
+    "/inventory" : {
+      "get" : {
+        "tags" : [ "reservation" ],
+        "summary" : "Returns room inventories by status",
+        "description" : "Returns a map of status codes to quantities",
+        "operationId" : "getInventory",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventory",
+          "description" : "blah",
+          "schema" : {
+            "type" : "object",
+            "properties" : {
+              "location" : {
+                "type" : "string"
+              },
+              "date" : {
+                "type" : "string",
+                "format" : "date-time"
+              },
+              "status" : {
+                "type" : "string"
+              }
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "integer",
+                "format" : "int32"
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      }
+    },
+    "/reservation" : {
+      "post" : {
+        "tags" : [ "reservation" ],
+        "summary" : "Place a reservation for a room",
+        "operationId" : "placereservation",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "reservation placed for purchasing the room",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Reservation"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Reservation"
+            }
+          },
+          "400" : {
+            "description" : "Invalid reservation"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      }
+    },
+    "/reservation/{reservationId}" : {
+      "get" : {
+        "tags" : [ "reservation" ],
+        "summary" : "Find reservation by ID",
+        "operationId" : "getreservationById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "reservationId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Reservation"
+            }
+          },
+          "400" : {
+            "description" : "Invalid ID supplied"
+          },
+          "404" : {
+            "description" : "reservation not found"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "reservation" ],
+        "summary" : "Update a reservation",
+        "operationId" : "updateReservationById",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "reservationId",
+          "in" : "path",
+          "description" : "ID of room that needs to be fetched",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "Reservation",
+          "in" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Reservation"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "400" : {
+            "description" : "Invalid ID supplied"
+          },
+          "404" : {
+            "description" : "reservation not found"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "reservation" ],
+        "summary" : "Delete reservation by ID",
+        "description" : "For valid response try integer IDs with positive integer value.\\ \\ Negative or non-integer values will generate API errors",
+        "operationId" : "deletereservation",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "reservationId",
+          "in" : "path",
+          "description" : "ID of the reservation that needs to be deleted",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "reservation deleted"
+          },
+          "400" : {
+            "description" : "Invalid ID supplied"
+          },
+          "404" : {
+            "description" : "reservation not found"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      }
+    },
+    "/user" : {
+      "post" : {
+        "tags" : [ "user" ],
+        "summary" : "Create user",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "createUser",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Created user object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/User"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      }
+    },
+    "/user/login" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "Logs user into the system",
+        "operationId" : "loginUser",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "username",
+          "in" : "query",
+          "description" : "The user name for login",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "password",
+          "in" : "query",
+          "description" : "The password for login in clear text",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "400" : {
+            "description" : "Invalid username/password supplied"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      }
+    },
+    "/user/logout" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "Logs out current logged in user session",
+        "operationId" : "logoutUser",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/user/{username}" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "Get user by user name",
+        "operationId" : "getUserByName",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "username",
+          "in" : "path",
+          "description" : "The name that needs to be fetched. Use user1 for testing.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "400" : {
+            "description" : "Invalid username supplied"
+          },
+          "404" : {
+            "description" : "User not found"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "user" ],
+        "summary" : "Updated user",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "updateUser",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "username",
+          "in" : "path",
+          "description" : "name that needs to be updated",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Updated user object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/User"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "success"
+          },
+          "400" : {
+            "description" : "Invalid user supplied"
+          },
+          "404" : {
+            "description" : "User not found"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "user" ],
+        "summary" : "Delete user",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "deleteUser",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "username",
+          "in" : "path",
+          "description" : "The name that needs to be deleted",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "success"
+          },
+          "400" : {
+            "description" : "Invalid userID"
+          },
+          "404" : {
+            "description" : "User not found"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      }
+    },
+    "/reset" : {
+      "post" : {
+        "tags" : [ "debug" ],
+        "summary" : "reset all room and reservation data to intitial state",
+        "description" : "for testing",
+        "operationId" : "resetAll",
+        "produces" : [ ],
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "header",
+          "description" : "reset",
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "success"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Reservation" : {
+      "type" : "object",
+      "properties" : {
+        "resId" : {
+          "type" : "integer"
+        },
+        "duration" : {
+          "type" : "integer"
+        },
+        "resDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "roomIds" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Room"
+          }
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "reservation Status",
+          "enum" : [ "placed", "paid", "complete" ]
+        }
+      }
+    },
+    "User" : {
+      "type" : "object",
+      "properties" : {
+        "userId" : {
+          "type" : "integer"
+        },
+        "username" : {
+          "type" : "string"
+        },
+        "firstName" : {
+          "type" : "string"
+        },
+        "lastName" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        },
+        "phone" : {
+          "type" : "string"
+        },
+        "userStatus" : {
+          "type" : "integer",
+          "description" : "User Status",
+          "enum" : [ "employee", "customer" ]
+        }
+      }
+    },
+    "Room" : {
+      "type" : "object",
+      "properties" : {
+        "roomId" : {
+          "type" : "integer"
+        },
+        "roomNumber" : {
+          "type" : "integer"
+        },
+        "roomType" : {
+          "type" : "string"
+        },
+        "roomCost" : {
+          "type" : "number"
+        },
+        "location" : {
+          "type" : "string",
+          "enum" : [ "Starkville, MS", "Atlanta, GA" ]
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "room status in the location",
+          "enum" : [ "available", "unavilable" ]
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "schemes" : [ "https", "http" ],
+  "basePath" : "/HilbunHotels/hhotel/1.0.3"
+}
