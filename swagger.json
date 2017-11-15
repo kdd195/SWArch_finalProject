@@ -158,7 +158,7 @@
         "parameters" : [ {
           "in" : "body",
           "name" : "inventory",
-          "description" : "blah",
+          "description" : "optional arguments to search by",
           "schema" : {
             "type" : "object",
             "properties" : {
