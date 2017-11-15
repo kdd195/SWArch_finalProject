@@ -1,0 +1,56 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+env
+
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.pyc
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+.cache
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+htmlcov/
+.tox
+nosetests.xml
+
+#Translations
+*.mo
+
+
+
+#Docs
+docs/_build
+
+#Pycharm
+.idea
+
+#Eclipse/Aptana
+.project
+.pydevproject
+
+#Visual Studio
+.vs
