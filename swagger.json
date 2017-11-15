@@ -492,12 +492,7 @@
         "description" : "for testing",
         "operationId" : "resetAll",
         "produces" : [ ],
-        "parameters" : [ {
-          "name" : "name",
-          "in" : "header",
-          "description" : "reset",
-          "type" : "string"
-        } ],
+        "parameters" : [ ],
         "responses" : {
           "200" : {
             "description" : "success"
