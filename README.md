@@ -1,9 +1,9 @@
 # SWArch_finalProject
 
-###Documentation
-https://app.swaggerhub.com/apis/HilbunHotels/hhotel/1.0.6/
+### Documentation
+https://app.swaggerhub.com/apis/HilbunHotels/hhotel/1.0.6/  
 
-###Docker
+### Docker
 #### to build docker image
 $ docker build -t hhapi .
 #### to list docker images
