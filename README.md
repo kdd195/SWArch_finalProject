@@ -1,7 +1,7 @@
 # SWArch_finalProject
 
 ### Documentation
-https://app.swaggerhub.com/apis/HilbunHotels/hhotel/1.0.6/  
+https://app.swaggerhub.com/apis/HilbunHotels/hhotel/1.0.6/
 
 ### Docker
 #### to build docker image
@@ -14,4 +14,4 @@ $ docker run -p 49150:8081 hhapi
 #### to see running docker containers
 $ docker ps
 ####  to open a shell in container
-$ docker exec -it <container id from docker ps> /bin/sh
+$ docker exec -it "container id from docker ps" /bin/sh
