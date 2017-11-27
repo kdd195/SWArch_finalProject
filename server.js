@@ -5,6 +5,6 @@ var app = require('./app');
 
 app.use(cors());
 
-var server = app.listen(80, function() {
-  console.log('Express server listening on port 80');
+var server = app.listen(3000, function() {
+  console.log('Express server listening on port 3000');
 });
