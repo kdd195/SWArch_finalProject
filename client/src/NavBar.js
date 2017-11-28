@@ -5,7 +5,7 @@ class NavBar extends Component {
   render() {
     return (
       <div className="NavBar">
-        <div>{this.props.children}</div>
+        <button>Search</button>
       </div>
     );
   }
