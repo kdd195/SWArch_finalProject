@@ -1,6 +1,6 @@
 .border-shadow{
   position: relative;
-  border-radius: 25px;    
+  border-radius: 25px;
   padding: 5px;
   box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, .5);
   margin: 10px;
@@ -32,7 +32,7 @@
   border-radius: 5px;
   background: #DDBC6F;
   padding: 10px;
-  height: 150px; 
+  height: 150px;
 }
 
 .bookTitleRow {
@@ -60,7 +60,7 @@
   max-width: 75%;
   top: 5%;
   border: 4px solid rgba(10, 10, 10, 0.583);
-  cursor: pointer;    
+  cursor: pointer;
 }
 
 .popover
@@ -108,8 +108,8 @@
   box-sizing: border-box;
 }
 
-.inLine{  
-  display: inline-block;  
+.inLine{
+  display: inline-block;
 }
 
 .App {
@@ -123,7 +123,7 @@
 
 .App-header {
   background-color: #CCC7B3;
-  height: 155px;
+  height: 100px;
   padding: 20px;
   color: black;
 }
