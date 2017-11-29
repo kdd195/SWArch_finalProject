@@ -1,7 +1,10 @@
 // app.js
 var express = require('express');
+var cors = require('cors')
 var app = express();
 var db = require('./db');
+
+app.use(cors())
 
 // Room controller
 var RoomController = require('./room/RoomController');
