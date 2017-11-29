@@ -1,4 +1,4 @@
-
+import qs from 'qs';
 
 class ApiHandler{
     static makeCall(object, urls, type) {
@@ -28,15 +28,49 @@ class ApiHandler{
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded ',
+                },
+                body: qs.stringify(object)
+            })
+            .then((resp) => resp.json())
+            .then((data) =>  console.log(data))
+            .catch(function(error) {
+                console.log(error);
+            });
+        }
+
+        if (type === 'PUT') {
+            return fetch(url , {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded ',
+                },
+                body: qs.stringify(object)
+            })
+            .then((resp) => resp.json())
+            .then((data) =>  console.log(data))
+            .catch(function(error) {
+                console.log(error);
+            });
+        }
+
+        if (type === 'DELETE') {
+            return fetch(url , {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(object)
             })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                 return responseJson;
-             })
+            .then((resp) => resp.json())
+            .then((data) =>  console.log(data))
+            .catch(function(error) {
+                console.log(error);
+            });
         }
+
         return results
     }
 

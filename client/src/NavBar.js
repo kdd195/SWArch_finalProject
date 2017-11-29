@@ -23,11 +23,26 @@ class NavBar extends Component {
         console.log(results);
     }
 
+    testPost(){
+        var data = {
+        "roomId": 5,
+        "roomNumber": 107,
+        "roomType": "King",
+        "roomCost": 49.99,
+        "location": "Starkville, MS",
+        "status": "available",
+        }
+        var results = ApiHandler.makeCall(data,'/room','POST');
+        console.log(results);
+    }
+
   render() {
     return (
       <div className="NavBar">
         <button id="roomButton" onClick={this.searchRooms}>Search Rooms</button>
         <button id="resButton" onClick={this.searchRes}>Search Reservations</button>
+        <button id="testButton" onClick={this.testPost}>Test POST</button>
+
       </div>
     );
   }
