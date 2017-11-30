@@ -32,8 +32,17 @@ router.get('/', function(req, res) {
 });
 
 // GETS A SINGLE ROOM FROM DATABASE
-router.get('/:id', function(req, res) {
+/*router.get('/:id', function(req, res) {
   Room.findById(req.params.id, function(err, room) {
+    if(err) return res.status(500).send("There was a problem finding the room.");
+    if(!room) return res.status(404).send("No room found.");
+    res.status(200).send(room);
+  });
+});*/
+
+// GETS A SINGLE ROOM FROM DATABASE (roomId)
+router.get('/:roomId', function(req, res) {
+  Room.find({roomId: req.params.roomId}, function(err, room) {
     if(err) return res.status(500).send("There was a problem finding the room.");
     if(!room) return res.status(404).send("No room found.");
     res.status(200).send(room);
@@ -41,16 +50,32 @@ router.get('/:id', function(req, res) {
 });
 
 // DELETES A ROOM FROM DATABASE
-router.delete('/:id', function(req, res) {
+/*router.delete('/:id', function(req, res) {
   Room.findByIdAndRemove(req.params.id, function(err, room) {
+    if(err) return res.status(500).send("There was a problem deleting the room.");
+    res.status(200).send("Room was deleted.");
+  });
+});*/
+
+// DELETES A ROOM FROM DATABASE (roomId)
+router.delete('/:roomId', function(req, res) {
+  Room.remove({roomId: req.params.roomId}, function(err, room) {
     if(err) return res.status(500).send("There was a problem deleting the room.");
     res.status(200).send("Room was deleted.");
   });
 });
 
 // UPDATES A ROOM IN THE DATABASE
-router.put('/:id', function(req, res) {
+/*router.put('/:id', function(req, res) {
   Room.findByIdAndUpdate(req.params.id, req.body, {new: true}, function(err, room) {
+    if(err) return res.status(500).send("There was a problem updating the room.");
+    res.status(200).send(room);
+  });
+});*/
+
+// UPDATES A ROOM IN THE DATABASE (roomId)
+router.put('/:roomId', function(req, res) {
+  Room.updateOne({roomId: req.params.roomId}, req.body, {new: true}, function(err, room) {
     if(err) return res.status(500).send("There was a problem updating the room.");
     res.status(200).send(room);
   });
