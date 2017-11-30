@@ -31,8 +31,17 @@ router.get('/', function(req, res) {
 });
 
 // GETS A SINGLE RESERVATION FROM DATABASE
-router.get('/:id', function(req, res) {
+/*router.get('/:id', function(req, res) {
   Reservation.findById(req.params.id, function(err, reservation) {
+    if(err) return res.status(500).send("There was a problem finding the reservation.");
+    if(!reservation) return res.status(404).send("No reservation found.");
+    res.status(200).send(reservation);
+  });
+});*/
+
+// GETS A SINGLE RESERVATION FROM DATABASE (resId)
+router.get('/:resId', function(req, res) {
+  Reservation.find({resId: req.params.resId}, function(err, reservation) {
     if(err) return res.status(500).send("There was a problem finding the reservation.");
     if(!reservation) return res.status(404).send("No reservation found.");
     res.status(200).send(reservation);
@@ -40,16 +49,32 @@ router.get('/:id', function(req, res) {
 });
 
 // DELETES A RESERVATION FROM DATABASE
-router.delete('/:id', function(req, res) {
+/*router.delete('/:id', function(req, res) {
   Reservation.findByIdAndRemove(req.params.id, function(err, reservation) {
+    if(err) return res.status(500).send("There was a problem deleting the reservation.");
+    res.status(200).send("Reservation was deleted.");
+  });
+});*/
+
+// DELETES A RESERVATION FROM DATABASE (resId)
+router.delete('/:resId', function(req, res) {
+  Reservation.remove({resId: req.params.resId}, function(err, reservation) {
     if(err) return res.status(500).send("There was a problem deleting the reservation.");
     res.status(200).send("Reservation was deleted.");
   });
 });
 
 // UPDATES A RESERVATION IN THE DATABASE
-router.put('/:id', function(req, res) {
+/*router.put('/:id', function(req, res) {
   Reservation.findByIdAndUpdate(req.params.id, req.body, {new: true}, function(err, reservation) {
+    if(err) return res.status(500).send("There was a problem updating the reservation.");
+    res.status(200).send(reservation);
+  });
+});*/
+
+// UPDATES A RESERVATION IN THE DATABASE (resId)
+router.put('/:resId', function(req, res) {
+  Reservation.updateOne({resId: req.params.resId}, req.body, {new: true}, function(err, reservation) {
     if(err) return res.status(500).send("There was a problem updating the reservation.");
     res.status(200).send(reservation);
   });
