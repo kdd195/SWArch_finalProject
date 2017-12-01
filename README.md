@@ -1,8 +1,17 @@
 # Software Architecture Professional Practice Project
 
-## Hilbun Hotels RESTful API
+There are two videos showing parts of the functionality. 
 
-### Documentation
-https://app.swaggerhub.com/apis/HilbunHotels/hhotel/1.0.7/
+There's the room file, or rooms.mp4
+* Show accesibility through the web browser
+* GET requests
+* POST request
+* DELETE request
+* PUT request
 
-### API Address: 35.196.7.68:3000
+Then, there's the reservation file, or _____
+* Show accesibility through the web browser
+* GET requests
+* POST request
+* DELETE request
+* PUT request
